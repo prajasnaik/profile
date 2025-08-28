@@ -34,7 +34,7 @@ export function ModeSelector({ onModeSelect }: ModeSelectorProps) {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground mb-4">
-                Clean, corporate-style interface with sidebar navigation
+                Clean, corporate-style interface
               </p>
               <Button
                 onClick={() => onModeSelect('professional')}
