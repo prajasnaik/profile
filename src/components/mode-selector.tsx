@@ -65,14 +65,10 @@ export function ModeSelector({ onModeSelect }: ModeSelectorProps) {
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground mb-4">
-                Creative and playful interface (Coming Soon)
+                Newspaper-style, playful interface
               </p>
-              <Button
-                onClick={() => onModeSelect('fun')}
-                variant="outline"
-                disabled
-              >
-                Coming Soon
+              <Button onClick={() => onModeSelect('fun')} variant="outline">
+                Enter Fun Mode
               </Button>
             </CardContent>
           </Card>
