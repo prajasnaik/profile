@@ -36,7 +36,10 @@ export default function Home() {
           />
         )}
         {currentMode === 'tech' && (
-          <TechMode onModeChange={setCurrentMode} preRunCommand={preRunCommand} />
+          <TechMode
+            onModeChange={setCurrentMode}
+            preRunCommand={preRunCommand}
+          />
         )}
         {currentMode === 'fun' && <FunMode onModeChange={setCurrentMode} />}
       </MainNavigation>

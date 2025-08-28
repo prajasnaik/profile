@@ -17,7 +17,8 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     'Type "help" to see available commands.',
     '',
   ]);
-  const preRunApplied = useRef(false);
+  const lastPreRun = useRef<string | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const downloadResume = () => {
     const link = document.createElement('a');
@@ -124,13 +125,44 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     }
   };
 
-  // Run pre-configured command when terminal opens
+  // Run pre-configured command when set or changed
   useEffect(() => {
-    if (preRunCommand && !preRunApplied.current) {
-      preRunApplied.current = true;
-      handleCommand(preRunCommand);
+    const cmd = (preRunCommand || '').trim();
+    if (cmd && lastPreRun.current !== cmd) {
+      lastPreRun.current = cmd;
+      handleCommand(cmd);
     }
   }, [preRunCommand]);
+
+  // Focus handling: focus on mount and when receiving a global event
+  useEffect(() => {
+    // initial focus
+    inputRef.current?.focus();
+    const onFocusRequest = () => {
+      inputRef.current?.focus();
+    };
+    const onRunCmd = (e: Event) => {
+      // support CustomEvent with string detail
+      const ce = e as CustomEvent<string>;
+      const cmd = (ce.detail || '').trim();
+      if (cmd) {
+        handleCommand(cmd);
+      }
+      inputRef.current?.focus();
+    };
+    window.addEventListener('focus-terminal', onFocusRequest as EventListener);
+    window.addEventListener('run-terminal-command', onRunCmd as EventListener);
+    return () => {
+      window.removeEventListener(
+        'focus-terminal',
+        onFocusRequest as EventListener
+      );
+      window.removeEventListener(
+        'run-terminal-command',
+        onRunCmd as EventListener
+      );
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background font-mono">
@@ -154,6 +186,7 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
+              ref={inputRef}
               className="flex-1 bg-transparent border-none outline-none text-green-400 font-mono"
               placeholder=""
               autoFocus
