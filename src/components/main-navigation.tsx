@@ -138,7 +138,7 @@ export function MainNavigation({
         <SidebarHeader className="h-14 flex items-center pt-5">
           <div className="text-sm font-semibold px-2">Portfolio</div>
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="pl-5">
           <SidebarGroup>
             <SidebarGroupLabel>Professional</SidebarGroupLabel>
             <SidebarGroupContent>
