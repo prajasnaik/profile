@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import {
   Sidebar,
@@ -30,6 +31,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -63,6 +65,7 @@ export function MainNavigation({
   // Local state for command dialog
   const [isCmdDialogOpen, setIsCmdDialogOpen] = useState(false);
   const [pendingCmd, setPendingCmd] = useState(preRunCommand ?? '');
+  const isMobile = useIsMobile();
 
   const handleSectionClick = (section: string) => {
     if (currentMode !== 'professional') onModeChange('professional');
@@ -132,7 +135,7 @@ export function MainNavigation({
   return (
     <SidebarProvider>
       <Sidebar className="border-r">
-        <SidebarHeader className="h-14 flex items-center">
+        <SidebarHeader className="h-14 flex items-center pt-5">
           <div className="text-sm font-semibold px-2">Portfolio</div>
         </SidebarHeader>
         <SidebarContent>
@@ -199,8 +202,31 @@ export function MainNavigation({
                 <span className="hidden sm:inline">Fun</span>
               </Button>
             </div>
-
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
+              {/* Desktop-only hint */}
+              {!isMobile && (
+                <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">
+                  <span className="hidden md:inline">Tip:</span>
+                  <span className="hidden md:inline">Press</span>
+                  <kbd className="px-1.5 py-0.5 rounded border bg-muted text-foreground font-mono text-[10px]">
+                    Ctrl
+                  </kbd>
+                  +
+                  <kbd className="px-1.5 py-0.5 rounded border bg-muted text-foreground font-mono text-[10px]">
+                    Alt
+                  </kbd>
+                  +
+                  <kbd className="px-1.5 py-0.5 rounded border bg-muted text-foreground font-mono text-[10px]">
+                    T
+                  </kbd>
+                  <span className="hidden md:inline">
+                    to run a quick command
+                  </span>
+                  <Badge variant="outline" className="ml-1">
+                    Terminal
+                  </Badge>
+                </div>
+              )}
               <ThemeToggle />
             </div>
           </div>
