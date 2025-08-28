@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { ViewMode } from '@/app/page';
-import { resumeData } from '@/lib/resume-data';
+import resumeData from '@/data/resume.json';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';

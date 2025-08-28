@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { ViewMode } from '@/app/page';
-import { resumeData } from '@/lib/resume-data';
+import resumeData from '@/data/resume.json';
 import type { SkillCategory, Project } from '@/lib/types';
 
 interface TechModeProps {

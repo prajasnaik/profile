@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { ViewMode } from '@/app/page';
-import { resumeData } from '@/lib/resume-data';
+import resumeData from '@/data/resume.json';
 import {
   User,
   Briefcase,
