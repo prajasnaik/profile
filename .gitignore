@@ -36,8 +36,13 @@ yarn-error.log*
 # vercel
 .vercel
 
-src/data/resume.json
+src/data/
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+public/resume.pdf
+
