@@ -8,9 +8,6 @@ import { Badge } from '@/components/ui/badge';
 import { ViewMode } from '@/app/page';
 import resumeData from '@/data/resume.json';
 import {
-  User,
-  Briefcase,
-  Code,
   FileText,
   ExternalLink,
   Mail,

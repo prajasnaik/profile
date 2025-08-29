@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { ViewMode } from '@/app/page';
-import resumeData from '@/data/resume.json';
-import type { SkillCategory, Project } from '@/lib/types';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ViewMode } from "@/app/page";
+import resumeData from "@/data/resume.json";
+import type { SkillCategory, Project } from "@/lib/types";
 
 interface TechModeProps {
   onModeChange: (mode: ViewMode | null) => void;
@@ -11,19 +11,19 @@ interface TechModeProps {
 }
 
 export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([
-    'Welcome to the terminal interface!',
+    "Welcome to the terminal interface!",
     'Type "help" to see available commands.',
-    '',
+    "",
   ]);
   const lastPreRun = useRef<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = 'resume.pdf';
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -31,25 +31,25 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
 
   const commands = {
     help: () => [
-      'Available commands:',
-      '  about       - Show background information',
-      '  skills      - List technical skills',
-      '  projects    - Show project portfolio',
-      '  resume      - Download resume PDF',
-      '  clear       - Clear terminal',
-      '  professional- Switch to professional mode',
-      '  fun         - Switch to fun mode',
-      '  help        - Show this help message',
+      "Available commands:",
+      "  about       - Show background information",
+      "  skills      - List technical skills",
+      "  projects    - Show project portfolio",
+      "  resume      - Download resume PDF",
+      "  clear       - Clear terminal",
+      "  professional- Switch to professional mode",
+      "  fun         - Switch to fun mode",
+      "  help        - Show this help message",
     ],
     about: () => [
       `Name: ${resumeData.personalInfo.name}`,
       `Email: ${resumeData.personalInfo.email}`,
       `Location: ${resumeData.personalInfo.location}`,
-      '',
+      "",
       resumeData.background.introduction,
     ],
     skills: () => {
-      const output = ['Technical Skills:'];
+      const output = ["Technical Skills:"];
       resumeData.skills.forEach((category: SkillCategory) => {
         output.push(`\n${category.category}:`);
         category.items.forEach((skill: string) => {
@@ -59,11 +59,11 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
       return output;
     },
     projects: () => {
-      const output = ['Projects:'];
+      const output = ["Projects:"];
       resumeData.projects.forEach((project: Project) => {
         output.push(`\n${project.title} (${project.period})`);
         output.push(`  ${project.description}`);
-        output.push(`  Technologies: ${project.technologies.join(', ')}`);
+        output.push(`  Technologies: ${project.technologies.join(", ")}`);
         if (project.link) {
           output.push(`  Link: ${project.link}`);
         }
@@ -73,66 +73,69 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     resume: () => {
       downloadResume();
       return [
-        'Downloading resume.pdf...',
-        'Resume download initiated successfully!',
-        'Check your downloads folder for the PDF file.',
+        "Downloading resume.pdf...",
+        "Resume download initiated successfully!",
+        "Check your downloads folder for the PDF file.",
       ];
     },
     professional: () => {
-      onModeChange('professional');
+      onModeChange("professional");
       return [
-        'Switching to professional mode...',
-        'Loading professional interface.',
+        "Switching to professional mode...",
+        "Loading professional interface.",
       ];
     },
     fun: () => {
-      onModeChange('fun');
-      return ['Switching to fun mode...', 'Loading fun interface... 🎉'];
+      onModeChange("fun");
+      return ["Switching to fun mode...", "Loading fun interface... 🎉"];
     },
   };
 
-  const handleCommand = (cmd: string) => {
-    const trimmedCmd = cmd.trim().toLowerCase();
+  const handleCommand = useCallback(
+    (cmd: string) => {
+      const trimmedCmd = cmd.trim().toLowerCase();
 
-    if (trimmedCmd === 'clear') {
-      setHistory([]);
-      setInput('');
-      return;
-    }
+      if (trimmedCmd === "clear") {
+        setHistory([]);
+        setInput("");
+        return;
+      }
 
-    const newHistory = [...history, `$ ${cmd}`];
+      const newHistory = [...history, `$ ${cmd}`];
 
-    if (trimmedCmd in commands) {
-      const output = commands[trimmedCmd as keyof typeof commands]();
-      newHistory.push(...output, '');
-    } else if (trimmedCmd === '') {
-      newHistory.push('');
-    } else {
-      newHistory.push(
-        `Command not found: ${trimmedCmd}`,
-        'Type "help" for available commands.',
-        ''
-      );
-    }
+      if (trimmedCmd in commands) {
+        const output = commands[trimmedCmd as keyof typeof commands]();
+        newHistory.push(...output, "");
+      } else if (trimmedCmd === "") {
+        newHistory.push("");
+      } else {
+        newHistory.push(
+          `Command not found: ${trimmedCmd}`,
+          'Type \"help\" for available commands.',
+          ""
+        );
+      }
 
-    setHistory(newHistory);
-    setInput('');
-  };
+      setHistory(newHistory);
+      setInput("");
+    },
+    [history, commands]
+  );
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleCommand(input);
     }
   };
 
   // Run pre-configured command when set or changed
   useEffect(() => {
-    const cmd = (preRunCommand || '').trim();
+    const cmd = (preRunCommand || "").trim();
     if (cmd && lastPreRun.current !== cmd) {
       lastPreRun.current = cmd;
       handleCommand(cmd);
     }
-  }, [preRunCommand]);
+  }, [preRunCommand, handleCommand]);
 
   // Focus handling: focus on mount and when receiving a global event
   useEffect(() => {
@@ -144,25 +147,25 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     const onRunCmd = (e: Event) => {
       // support CustomEvent with string detail
       const ce = e as CustomEvent<string>;
-      const cmd = (ce.detail || '').trim();
+      const cmd = (ce.detail || "").trim();
       if (cmd) {
         handleCommand(cmd);
       }
       inputRef.current?.focus();
     };
-    window.addEventListener('focus-terminal', onFocusRequest as EventListener);
-    window.addEventListener('run-terminal-command', onRunCmd as EventListener);
+    window.addEventListener("focus-terminal", onFocusRequest as EventListener);
+    window.addEventListener("run-terminal-command", onRunCmd as EventListener);
     return () => {
       window.removeEventListener(
-        'focus-terminal',
+        "focus-terminal",
         onFocusRequest as EventListener
       );
       window.removeEventListener(
-        'run-terminal-command',
+        "run-terminal-command",
         onRunCmd as EventListener
       );
     };
-  }, []);
+  }, [handleCommand]);
 
   return (
     <div className="min-h-screen bg-background font-mono">
@@ -196,8 +199,8 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
 
         <div className="mt-4 text-sm text-muted-foreground">
           <p>
-            This is a simulated terminal interface. Try typing "help" to get
-            started.
+            This is a simulated terminal interface. Try typing &quot;help&quot;
+            to get started.
           </p>
         </div>
       </div>

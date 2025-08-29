@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import { useEffect, useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Sidebar,
   SidebarContent,
@@ -19,8 +19,8 @@ import {
   SidebarProvider,
   SidebarSeparator,
   SidebarTrigger,
-} from '@/components/ui/sidebar';
-import { ViewMode } from '@/app/page';
+} from "@/components/ui/sidebar";
+import { ViewMode } from "@/app/page";
 import {
   User,
   Code,
@@ -28,10 +28,11 @@ import {
   FileText,
   Terminal,
   Palette,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
+  type LucideIcon,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { ReactNode } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,7 +42,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
 interface MainNavigationProps {
   currentMode: ViewMode;
@@ -64,11 +65,11 @@ export function MainNavigation({
 }: MainNavigationProps) {
   // Local state for command dialog
   const [isCmdDialogOpen, setIsCmdDialogOpen] = useState(false);
-  const [pendingCmd, setPendingCmd] = useState(preRunCommand ?? '');
+  const [pendingCmd, setPendingCmd] = useState(preRunCommand ?? "");
   const isMobile = useIsMobile();
 
   const handleSectionClick = (section: string) => {
-    if (currentMode !== 'professional') onModeChange('professional');
+    if (currentMode !== "professional") onModeChange("professional");
     onSectionChange?.(section);
   };
 
@@ -79,12 +80,12 @@ export function MainNavigation({
   }: {
     id: string;
     label: string;
-    icon: any;
+    icon: LucideIcon;
   }) => (
     <SidebarMenuItem>
       <SidebarMenuButton
         onClick={() => handleSectionClick(id)}
-        isActive={currentMode === 'professional' && activeSection === id}
+        isActive={currentMode === "professional" && activeSection === id}
       >
         <Icon className="h-4 w-4" />
         <span>{label}</span>
@@ -95,40 +96,40 @@ export function MainNavigation({
   // Global hotkey: Ctrl+Alt+T to open command dialog or focus terminal
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      const isT = e.key.toLowerCase() === 't';
+      const isT = e.key.toLowerCase() === "t";
       if (e.ctrlKey && e.altKey && isT) {
         e.preventDefault();
-        if (currentMode === 'tech') {
+        if (currentMode === "tech") {
           // Focus existing terminal input
-          window.dispatchEvent(new CustomEvent('focus-terminal'));
+          window.dispatchEvent(new CustomEvent("focus-terminal"));
         } else {
-          setPendingCmd('');
+          setPendingCmd("");
           setIsCmdDialogOpen(true);
         }
       }
     };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [currentMode]);
 
   // Run command: sets parent preRunCommand, switch to tech, and focus terminal
   const handleRunCmd = () => {
-    const cmd = (pendingCmd || '').trim();
+    const cmd = (pendingCmd || "").trim();
     if (cmd.length === 0) {
       setIsCmdDialogOpen(false);
-      onModeChange('tech');
+      onModeChange("tech");
       // Focus soon after mount/switch
       setTimeout(() => {
-        window.dispatchEvent(new CustomEvent('focus-terminal'));
+        window.dispatchEvent(new CustomEvent("focus-terminal"));
       }, 0);
       return;
     }
     onPreRunCommandChange?.(cmd);
     setIsCmdDialogOpen(false);
-    onModeChange('tech');
+    onModeChange("tech");
     setTimeout(() => {
       // Signal TechMode to auto-run the latest preRunCommand and focus
-      window.dispatchEvent(new CustomEvent('focus-terminal'));
+      window.dispatchEvent(new CustomEvent("focus-terminal"));
     }, 0);
   };
 
@@ -163,39 +164,39 @@ export function MainNavigation({
             <div className="flex items-center gap-2">
               <SidebarTrigger />
               <Button
-                variant={currentMode === 'professional' ? 'secondary' : 'ghost'}
+                variant={currentMode === "professional" ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => {
                   setIsCmdDialogOpen(false);
-                  onModeChange('professional');
+                  onModeChange("professional");
                 }}
-                className={cn('h-8')}
+                className={cn("h-8")}
                 title="Professional"
               >
                 <User className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">Professional</span>
               </Button>
               <Button
-                variant={currentMode === 'tech' ? 'secondary' : 'ghost'}
+                variant={currentMode === "tech" ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => {
                   setIsCmdDialogOpen(false);
-                  onModeChange('tech');
+                  onModeChange("tech");
                 }}
-                className={cn('h-8')}
+                className={cn("h-8")}
                 title="Open Terminal"
               >
                 <Terminal className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">Terminal</span>
               </Button>
               <Button
-                variant={currentMode === 'fun' ? 'secondary' : 'ghost'}
+                variant={currentMode === "fun" ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => {
                   setIsCmdDialogOpen(false);
-                  onModeChange('fun');
+                  onModeChange("fun");
                 }}
-                className={cn('h-8')}
+                className={cn("h-8")}
                 title="Fun Mode"
               >
                 <Palette className="h-4 w-4 mr-2" />
@@ -252,7 +253,7 @@ export function MainNavigation({
               onChange={(e) => setPendingCmd(e.target.value)}
               placeholder="e.g., help or projects"
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleRunCmd();
                 }
               }}

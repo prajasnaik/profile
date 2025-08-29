@@ -16,12 +16,20 @@ import {
   Linkedin,
 } from 'lucide-react';
 
+import Image from 'next/image';
+
+
 interface FunModeProps {
   onModeChange: (mode: ViewMode | null) => void;
 }
 
 export function FunMode({ onModeChange }: FunModeProps) {
-  const { personalInfo, background, skills, projects } = resumeData;
+  const { personalInfo, background, skills, projects } = resumeData as {
+    personalInfo: typeof resumeData.personalInfo;
+    background: typeof resumeData.background;
+    skills: typeof resumeData.skills;
+    projects: import('@/lib/types').Project[];
+  };
   const imgRef = useRef<HTMLImageElement | null>(null);
   // 1x1 pixel black JPEG fallback
   const fallbackDataUri =
@@ -71,7 +79,7 @@ export function FunMode({ onModeChange }: FunModeProps) {
                   <p className="leading-relaxed">{background.summary}</p>
                 </div>
                 <div className="md:col-span-1">
-                  <img
+                  <Image
                     ref={imgRef}
                     src="/placeholder.jpg"
                     alt={`${personalInfo.name} portrait`}
