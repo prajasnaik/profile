@@ -23,7 +23,15 @@ interface FunModeProps {
 }
 
 export function FunMode({ onModeChange }: FunModeProps) {
-  const { personalInfo, background, skills, projects, experience, education, awards } = resumeData as {
+  const {
+    personalInfo,
+    background,
+    skills,
+    projects,
+    experience,
+    education,
+    awards,
+  } = resumeData as {
     personalInfo: typeof resumeData.personalInfo;
     background: typeof resumeData.background;
     skills: typeof resumeData.skills;
