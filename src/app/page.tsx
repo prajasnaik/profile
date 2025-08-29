@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { ModeSelector } from '@/components/mode-selector';
-import { MainNavigation } from '@/components/main-navigation';
-import { ProfessionalMode } from '@/components/modes/professional-mode';
-import { TechMode } from '@/components/modes/tech-mode';
-import { FunMode } from '@/components/modes/fun-mode';
+import { useState } from "react";
+import { ModeSelector } from "@/components/mode-selector";
+import { MainNavigation } from "@/components/main-navigation";
+import { ProfessionalMode } from "@/components/modes/professional-mode";
+import { TechMode } from "@/components/modes/tech-mode";
+import { FunMode } from "@/components/modes/fun-mode";
 
-export type ViewMode = 'professional' | 'tech' | 'fun';
+export type ViewMode = "professional" | "tech" | "fun";
 
 export default function Home() {
   const [currentMode, setCurrentMode] = useState<ViewMode | null>(null);
-  const [activeSection, setActiveSection] = useState<string>('background');
-  const [preRunCommand, setPreRunCommand] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<string>("background");
+  const [preRunCommand, setPreRunCommand] = useState<string>("");
 
   if (!currentMode) {
     return <ModeSelector onModeSelect={setCurrentMode} />;
@@ -28,20 +28,20 @@ export default function Home() {
         preRunCommand={preRunCommand}
         onPreRunCommandChange={setPreRunCommand}
       >
-        {currentMode === 'professional' && (
+        {currentMode === "professional" && (
           <ProfessionalMode
             onModeChange={setCurrentMode}
             activeSection={activeSection}
             onSectionChange={setActiveSection}
           />
         )}
-        {currentMode === 'tech' && (
+        {currentMode === "tech" && (
           <TechMode
             onModeChange={setCurrentMode}
             preRunCommand={preRunCommand}
           />
         )}
-        {currentMode === 'fun' && <FunMode onModeChange={setCurrentMode} />}
+        {currentMode === "fun" && <FunMode />}
       </MainNavigation>
     </div>
   );

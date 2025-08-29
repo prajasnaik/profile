@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
 import { ViewMode } from "@/app/page";
 import resumeData from "@/data/resume.json";
 import type {
@@ -8,6 +8,7 @@ import type {
   Project,
   ExperienceEntry,
   EducationEntry,
+  ResumeData,
 } from "@/lib/types";
 
 interface TechModeProps {
@@ -24,6 +25,8 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
   ]);
   const lastPreRun = useRef<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  // Strongly type the JSON import once for all usages
+  const data: ResumeData = resumeData as ResumeData;
 
   const downloadResume = () => {
     const link = document.createElement("a");
@@ -34,96 +37,110 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     document.body.removeChild(link);
   };
 
-  const commands = {
-    help: () => [
-      "Available commands:",
-      "  about       - Show background information",
-      "  skills      - List technical skills",
-      "  projects    - Show project portfolio",
-      "  experience  - Show work experience",
-      "  education   - Show education",
-      "  awards      - Show awards & achievements",
-      "  resume      - Download resume PDF",
-      "  clear       - Clear terminal",
-      "  professional- Switch to professional mode",
-      "  fun         - Switch to fun mode",
-      "  help        - Show this help message",
-    ],
-    about: () => [
-      `Name: ${resumeData.personalInfo.name}`,
-      `Email: ${resumeData.personalInfo.email}`,
-      `Location: ${resumeData.personalInfo.location}`,
-      "",
-      resumeData.background.introduction,
-    ],
-    skills: () => {
-      const output = ["Technical Skills:"];
-      resumeData.skills.forEach((category: SkillCategory) => {
-        output.push(`\n${category.category}:`);
-        category.items.forEach((skill: string) => {
-          output.push(`  - ${skill}`);
+  const commands = useMemo(
+    () => ({
+      help: () => [
+        "Available commands:",
+        "  about       - Show background information",
+        "  skills      - List technical skills",
+        "  projects    - Show project portfolio",
+        "  experience  - Show work experience",
+        "  education   - Show education",
+        "  awards      - Show awards & achievements",
+        "  resume      - Download resume PDF",
+        "  clear       - Clear terminal",
+        "  professional- Switch to professional mode",
+        "  fun         - Switch to fun mode",
+        "  help        - Show this help message",
+      ],
+      about: () => [
+        `Name: ${data.personalInfo.name}`,
+        `Email: ${data.personalInfo.email}`,
+        `Location: ${data.personalInfo.location}`,
+        "",
+        data.background.introduction,
+      ],
+      skills: () => {
+        const output = ["Technical Skills:"];
+        data.skills.forEach((category: SkillCategory) => {
+          output.push(`\n${category.category}:`);
+          category.items.forEach((skill: string) => {
+            output.push(`  - ${skill}`);
+          });
         });
-      });
-      return output;
-    },
-    projects: () => {
-      const output = ["Projects:"];
-      resumeData.projects.forEach((project: Project) => {
-        output.push(`\n${project.title} (${project.period})`);
-        output.push(`  ${project.description}`);
-        output.push(`  Technologies: ${project.technologies.join(", ")}`);
-        if (project.link) {
-          output.push(`  Link: ${project.link}`);
-        }
-      });
-      return output;
-    },
-    experience: () => {
-      const list = resumeData.experience as ExperienceEntry[] | undefined;
-      if (!list?.length) return ["No experience found."];
-      const out = ["Experience:"];
-      list.forEach((exp) => {
-        out.push(`\n${exp.title} — ${exp.company} (${exp.period})`);
-        exp.details.forEach((d) => out.push(`  - ${d}`));
-      });
-      return out;
-    },
-    education: () => {
-      const list = resumeData.education as EducationEntry[] | undefined;
-      if (!list?.length) return ["No education found."];
-      const out = ["Education:"];
-      list.forEach((edu) => {
-        out.push(`\n${edu.institution}`);
-        out.push(`  ${edu.degree} (${edu.period})`);
-        edu.details?.forEach((d) => out.push(`  - ${d}`));
-      });
-      return out;
-    },
-    awards: () => {
-      const list = (resumeData as any).awards as string[] | undefined;
-      if (!list?.length) return ["No awards found."];
-      return ["Awards:", ...list.map((a) => `  - ${a}`)];
-    },
-    resume: () => {
-      downloadResume();
-      return [
-        "Downloading resume.pdf...",
-        "Resume download initiated successfully!",
-        "Check your downloads folder for the PDF file.",
-      ];
-    },
-    professional: () => {
-      onModeChange("professional");
-      return [
-        "Switching to professional mode...",
-        "Loading professional interface.",
-      ];
-    },
-    fun: () => {
-      onModeChange("fun");
-      return ["Switching to fun mode...", "Loading fun interface... 🎉"];
-    },
-  };
+        return output;
+      },
+      projects: () => {
+        const output = ["Projects:"];
+        data.projects.forEach((project: Project) => {
+          output.push(`\n${project.title} (${project.period})`);
+          output.push(`  ${project.description}`);
+          output.push(`  Technologies: ${project.technologies.join(", ")}`);
+          if (project.link) {
+            output.push(`  Link: ${project.link}`);
+          }
+        });
+        return output;
+      },
+      experience: () => {
+        const list = data.experience as ExperienceEntry[] | undefined;
+        if (!list?.length) return ["No experience found."];
+        const out = ["Experience:"];
+        list.forEach((exp) => {
+          out.push(`\n${exp.title} — ${exp.company} (${exp.period})`);
+          exp.details.forEach((d) => out.push(`  - ${d}`));
+        });
+        return out;
+      },
+      education: () => {
+        const list = data.education as EducationEntry[] | undefined;
+        if (!list?.length) return ["No education found."];
+        const out = ["Education:"];
+        list.forEach((edu) => {
+          out.push(`\n${edu.institution}`);
+          out.push(`  ${edu.degree} (${edu.period})`);
+          edu.details?.forEach((d) => out.push(`  - ${d}`));
+        });
+        return out;
+      },
+      awards: () => {
+        const list = data.awards as string[] | undefined;
+        if (!list?.length) return ["No awards found."];
+        return ["Awards:", ...list.map((a) => `  - ${a}`)];
+      },
+      resume: () => {
+        downloadResume();
+        return [
+          "Downloading resume.pdf...",
+          "Resume download initiated successfully!",
+          "Check your downloads folder for the PDF file.",
+        ];
+      },
+      professional: () => {
+        onModeChange("professional");
+        return [
+          "Switching to professional mode...",
+          "Loading professional interface.",
+        ];
+      },
+      fun: () => {
+        onModeChange("fun");
+        return ["Switching to fun mode...", "Loading fun interface... 🎉"];
+      },
+    }),
+    [
+      onModeChange,
+      data.awards,
+      data.background.introduction,
+      data.education,
+      data.experience,
+      data.personalInfo.email,
+      data.personalInfo.location,
+      data.personalInfo.name,
+      data.projects,
+      data.skills,
+    ]
+  );
 
   const handleCommand = useCallback(
     (cmd: string) => {

@@ -34,23 +34,13 @@ type Section =
   | "resume";
 
 export function ProfessionalMode({
-  onModeChange,
   activeSection: externalActiveSection,
-  onSectionChange,
 }: ProfessionalModeProps) {
-  const [internalActiveSection, setInternalActiveSection] =
-    useState<Section>("background");
+  const [internalActiveSection] = useState<Section>("background");
 
   // Use external activeSection if provided, otherwise use internal state
   const activeSection =
     (externalActiveSection as Section) || internalActiveSection;
-
-  const handleSectionChange = (section: Section) => {
-    setInternalActiveSection(section);
-    if (onSectionChange) {
-      onSectionChange(section);
-    }
-  };
 
   const downloadResume = () => {
     const link = document.createElement("a");

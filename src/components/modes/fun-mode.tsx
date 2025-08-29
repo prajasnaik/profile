@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { ViewMode } from "@/app/page";
 import resumeData from "@/data/resume.json";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -18,11 +17,7 @@ import {
 
 import Image from "next/image";
 
-interface FunModeProps {
-  onModeChange: (mode: ViewMode | null) => void;
-}
-
-export function FunMode({ onModeChange }: FunModeProps) {
+export function FunMode() {
   const {
     personalInfo,
     background,
