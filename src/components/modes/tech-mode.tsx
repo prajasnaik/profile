@@ -25,6 +25,10 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
   ]);
   const lastPreRun = useRef<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const outputRef = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
   // Strongly type the JSON import once for all usages
   const data: ResumeData = resumeData as ResumeData;
 
@@ -179,6 +183,18 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     }
   };
 
+  // Auto-scroll to bottom on history changes (command completion)
+  useEffect(() => {
+    const el = outputRef.current;
+    if (!el) return;
+    // Prefer element bottom marker for accuracy
+    if (bottomRef.current && bottomRef.current.scrollIntoView) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    } else {
+      el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+    }
+  }, [history]);
+
   // Run pre-configured command when set or changed
   useEffect(() => {
     const cmd = (preRunCommand || "").trim();
@@ -222,7 +238,11 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
     <div className="min-h-screen bg-background font-mono">
       {/* Terminal */}
       <div className="container mx-auto px-4 py-6">
-        <div className="bg-black border border-gray-700 rounded-lg p-4 min-h-[600px] max-h-[600px] overflow-y-auto">
+        <div
+          className="bg-black border border-gray-700 rounded-lg p-4 min-h-[600px] max-h-[600px] overflow-y-auto"
+          ref={outputRef}
+        >
+          {" "}
           {/* Terminal Output */}
           <div className="space-y-1 mb-4">
             {history.map((line, index) => (
@@ -231,7 +251,6 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
               </div>
             ))}
           </div>
-
           {/* Input Line */}
           <div className="flex items-center gap-2 text-sm">
             <span className="text-green-400 font-mono">$</span>
@@ -246,6 +265,7 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
               autoFocus
             />
           </div>
+          <div ref={bottomRef} />
         </div>
 
         <div className="mt-4 text-sm text-muted-foreground">
