@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
-import { ViewMode } from '@/app/page';
-import resumeData from '@/data/resume.json';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import { useRef } from "react";
+import { ViewMode } from "@/app/page";
+import resumeData from "@/data/resume.json";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import {
   ExternalLink,
   Mail,
@@ -14,10 +14,9 @@ import {
   Globe,
   Github,
   Linkedin,
-} from 'lucide-react';
+} from "lucide-react";
 
-import Image from 'next/image';
-
+import Image from "next/image";
 
 interface FunModeProps {
   onModeChange: (mode: ViewMode | null) => void;
@@ -28,12 +27,12 @@ export function FunMode({ onModeChange }: FunModeProps) {
     personalInfo: typeof resumeData.personalInfo;
     background: typeof resumeData.background;
     skills: typeof resumeData.skills;
-    projects: import('@/lib/types').Project[];
+    projects: import("@/lib/types").Project[];
   };
   const imgRef = useRef<HTMLImageElement | null>(null);
   // 1x1 pixel black JPEG fallback
   const fallbackDataUri =
-    'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhISEhIVFhUVFRUVFRUVFRUVFRUWFxUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBBAcDAv/EADwQAAEDAwMCAwUHBQAAAAAAAAECAxEABAUSITETQVEiMmFxgZGhFCNCUrHBFSMzYoLC0eH/xAAZAQEAAwEBAAAAAAAAAAAAAAABAgMEBQb/xAAmEQEAAgEDAwQDAAAAAAAAAAABAhEDBBIhMQRBIlEFMkJxYYHR/9oADAMBAAIRAxEAPwD7iIiAiIgIiICIiAiIgIiICIiAiY7Zt0nqz8W0h8l3fZ0s1tYx8jzXn0u4P8Ao2m6+0oZlJm2JYwY6mu8b2mT1a9k2J0z6l9Qxq3sS36yF6N5xvV3m3V6Zq2rjUq7TZq7H6C9o3o0rFjJfpe7+uF0f3fUdie9Hk6m2p9h0VK1xjQXyHqYz7j7vG0yZ9P2zTtQ0v2rV0pKqg1k0pU6lU/IVl1o2J8z1v2Qq2K1Ybqf2Yv6e2tV2n5T5+HnjXjQXh3sQ5n3Te6x7eI6qv8AG+3i8rU1b9J9k3t0b7a0WQkYpKkqZk8wX3nA8Zf8A6bWc9Y7eT8n5iIiAiIgIiICIiAiIgIiICIiAiIgf/2Q==';
+    "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhISEhIVFhUVFRUVFRUVFRUVFRUWFxUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBBAcDAv/EADwQAAEDAwMCAwUHBQAAAAAAAAECAxEABAUSITETQVEiMmFxgZGhFCNCUrHBFSMzYoLC0eH/xAAZAQEAAwEBAAAAAAAAAAAAAAABAgMEBQb/xAAmEQEAAgEDAwQDAAAAAAAAAAABAhEDBBIhMQRBIlEFMkJxYYHR/9oADAMBAAIRAxEAPwD7iIiAiIgIiICIiAiIgIiICIiAiY7Zt0nqz8W0h8l3fZ0s1tYx8jzXn0u4P8Ao2m6+0oZlJm2JYwY6mu8b2mT1a9k2J0z6l9Qxq3sS36yF6N5xvV3m3V6Zq2rjUq7TZq7H6C9o3o0rFjJfpe7+uF0f3fUdie9Hk6m2p9h0VK1xjQXyHqYz7j7vG0yZ9P2zTtQ0v2rV0pKqg1k0pU6lU/IVl1o2J8z1v2Qq2K1Ybqf2Yv6e2tV2n5T5+HnjXjQXh3sQ5n3Te6x7eI6qv8AG+3i8rU1b9J9k3t0b7a0WQkYpKkqZk8wX3nA8Zf8A6bWc9Y7eT8n5iIiAiIgIiICIiAiIgIiICIiAiIgf/2Q==";
 
   return (
     <div className="min-h-screen bg-background">
@@ -45,13 +44,13 @@ export function FunMode({ onModeChange }: FunModeProps) {
             Special Portfolio Edition
           </div>
           <h1 className="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">
-            The {personalInfo.name?.split(' ')[0] || 'Dev'} Daily
+            The {personalInfo.name?.split(" ")[0] || "Dev"} Daily
           </h1>
           <div className="mt-2 text-sm text-muted-foreground">
             {new Date().toLocaleDateString(undefined, {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })}
             <span className="mx-2">•</span>
             {personalInfo.location}
@@ -81,7 +80,10 @@ export function FunMode({ onModeChange }: FunModeProps) {
                 <div className="md:col-span-1">
                   <Image
                     ref={imgRef}
-                    src="/placeholder.jpg"
+                    src="profile-photo.jpg"
+                    width={200}
+                    height={300}
+                    unoptimized={true}
                     alt={`${personalInfo.name} portrait`}
                     onError={() => {
                       if (imgRef.current) imgRef.current.src = fallbackDataUri;

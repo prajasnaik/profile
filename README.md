@@ -117,7 +117,7 @@ The website content is driven by a JSON file located at `src/data/resume.json`. 
 ### Profile Image
 
 1. Place your profile image in the `public/` directory
-2. Name it appropriately (e.g., `profile.jpg`, `avatar.png`)
+2. Name it appropriately (`profile-photo.jpg`)
 3. The image will be automatically referenced in the resume display
 
 ### Resume PDF
@@ -273,3 +273,4 @@ If you encounter any issues or have questions:
 ---
 
 Built with ❤️ using Next.js and modern web technologies.
+
