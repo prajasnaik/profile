@@ -1,19 +1,13 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { ViewMode } from '@/app/page';
-import resumeData from '@/data/resume.json';
-import {
-  FileText,
-  ExternalLink,
-  Mail,
-  MapPin,
-  Phone,
-} from 'lucide-react';
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { ViewMode } from "@/app/page";
+import resumeData from "@/data/resume.json";
+import { FileText, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 
 interface ProfessionalModeProps {
   onModeChange: (mode: ViewMode | null) => void;
@@ -21,7 +15,7 @@ interface ProfessionalModeProps {
   onSectionChange?: (section: string) => void;
 }
 
-type Section = 'background' | 'skills' | 'projects' | 'resume';
+type Section = "background" | "skills" | "projects" | "resume";
 
 export function ProfessionalMode({
   onModeChange,
@@ -29,7 +23,7 @@ export function ProfessionalMode({
   onSectionChange,
 }: ProfessionalModeProps) {
   const [internalActiveSection, setInternalActiveSection] =
-    useState<Section>('background');
+    useState<Section>("background");
 
   // Use external activeSection if provided, otherwise use internal state
   const activeSection =
@@ -43,9 +37,9 @@ export function ProfessionalMode({
   };
 
   const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = 'resume.pdf';
+    const link = document.createElement("a");
+    link.href = "/resume.pdf";
+    link.download = "resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -53,7 +47,7 @@ export function ProfessionalMode({
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'background':
+      case "background":
         return (
           <div className="space-y-6">
             <div>
@@ -61,6 +55,9 @@ export function ProfessionalMode({
                 Background & Introduction
               </h2>
               <div className="space-y-4">
+                <div className="text-xl font-bold">
+                  {resumeData.personalInfo.name}
+                </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   {resumeData.personalInfo.location}
@@ -93,7 +90,7 @@ export function ProfessionalMode({
           </div>
         );
 
-      case 'skills':
+      case "skills":
         return (
           <div className="space-y-6">
             <h2 className="text-3xl font-bold mb-4">Skills & Technologies</h2>
@@ -116,7 +113,7 @@ export function ProfessionalMode({
           </div>
         );
 
-      case 'projects':
+      case "projects":
         return (
           <div className="space-y-6">
             <h2 className="text-3xl font-bold mb-4">Projects & Portfolio</h2>
@@ -162,7 +159,7 @@ export function ProfessionalMode({
           </div>
         );
 
-      case 'resume':
+      case "resume":
         return (
           <div className="space-y-6">
             <h2 className="text-3xl font-bold mb-4">Resume</h2>
