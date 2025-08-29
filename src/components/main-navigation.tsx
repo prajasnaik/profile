@@ -26,6 +26,8 @@ import {
   Code,
   Briefcase,
   FileText,
+  GraduationCap,
+  Award,
   Terminal,
   Palette,
   type LucideIcon,
@@ -145,12 +147,23 @@ export function MainNavigation({
             <SidebarGroupContent>
               <SidebarMenu>
                 <SectionButton id="background" label="Background" icon={User} />
+                <SectionButton
+                  id="experience"
+                  label="Experience"
+                  icon={Briefcase}
+                />
+                <SectionButton
+                  id="education"
+                  label="Education"
+                  icon={GraduationCap}
+                />
                 <SectionButton id="skills" label="Skills" icon={Code} />
                 <SectionButton
                   id="projects"
                   label="Projects"
                   icon={Briefcase}
                 />
+                <SectionButton id="awards" label="Awards" icon={Award} />
                 <SectionButton id="resume" label="Resume" icon={FileText} />
               </SidebarMenu>
             </SidebarGroupContent>

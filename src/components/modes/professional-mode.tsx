@@ -7,7 +7,16 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ViewMode } from "@/app/page";
 import resumeData from "@/data/resume.json";
-import { FileText, ExternalLink, Mail, MapPin, Phone } from "lucide-react";
+import {
+  FileText,
+  ExternalLink,
+  Mail,
+  MapPin,
+  Phone,
+  Briefcase,
+  GraduationCap,
+  Award,
+} from "lucide-react";
 
 interface ProfessionalModeProps {
   onModeChange: (mode: ViewMode | null) => void;
@@ -15,7 +24,14 @@ interface ProfessionalModeProps {
   onSectionChange?: (section: string) => void;
 }
 
-type Section = "background" | "skills" | "projects" | "resume";
+type Section =
+  | "background"
+  | "skills"
+  | "projects"
+  | "experience"
+  | "education"
+  | "awards"
+  | "resume";
 
 export function ProfessionalMode({
   onModeChange,
@@ -156,6 +172,86 @@ export function ProfessionalMode({
                 </Card>
               ))}
             </div>
+          </div>
+        );
+
+      case "experience":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold mb-4 flex items-center gap-2">
+              <Briefcase className="h-7 w-7" /> Experience
+            </h2>
+            <div className="grid gap-6">
+              {resumeData.experience?.map((exp) => (
+                <Card key={`${exp.company}-${exp.title}-${exp.period}`}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <CardTitle>{exp.title}</CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {exp.company} • {exp.period}
+                        </p>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="list-disc pl-6 space-y-2">
+                      {exp.details?.map((d: string, idx: number) => (
+                        <li key={idx}>{d}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        );
+
+      case "education":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold mb-4 flex items-center gap-2">
+              <GraduationCap className="h-7 w-7" /> Education
+            </h2>
+            <div className="grid gap-6">
+              {resumeData.education?.map((edu) => (
+                <Card key={`${edu.institution}-${edu.period}`}>
+                  <CardHeader>
+                    <CardTitle>{edu.institution}</CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {edu.degree} • {edu.period}
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    {edu.details && (
+                      <ul className="list-disc pl-6 space-y-2">
+                        {edu.details.map((d: string, idx: number) => (
+                          <li key={idx}>{d}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        );
+
+      case "awards":
+        return (
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold mb-4 flex items-center gap-2">
+              <Award className="h-7 w-7" /> Awards & Achievements
+            </h2>
+            <Card>
+              <CardContent className="pt-6">
+                <ul className="list-disc pl-6 space-y-2">
+                  {resumeData.awards?.map((a: string, idx: number) => (
+                    <li key={idx}>{a}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
           </div>
         );
 

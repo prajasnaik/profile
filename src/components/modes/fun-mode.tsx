@@ -23,11 +23,14 @@ interface FunModeProps {
 }
 
 export function FunMode({ onModeChange }: FunModeProps) {
-  const { personalInfo, background, skills, projects } = resumeData as {
+  const { personalInfo, background, skills, projects, experience, education, awards } = resumeData as {
     personalInfo: typeof resumeData.personalInfo;
     background: typeof resumeData.background;
     skills: typeof resumeData.skills;
     projects: import("@/lib/types").Project[];
+    experience?: import("@/lib/types").ExperienceEntry[];
+    education?: import("@/lib/types").EducationEntry[];
+    awards?: string[];
   };
   const imgRef = useRef<HTMLImageElement | null>(null);
   // 1x1 pixel black JPEG fallback
@@ -234,6 +237,83 @@ export function FunMode({ onModeChange }: FunModeProps) {
             </CardContent>
           </Card>
         </div>
+
+        {/* Experience & Education Section */}
+        {(experience?.length || education?.length) && (
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            {experience?.length ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle>City Desk: Experience</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {experience.map((exp) => (
+                      <div key={`${exp.company}-${exp.title}-${exp.period}`}>
+                        <div className="font-semibold">{exp.title}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {exp.company} • {exp.period}
+                        </div>
+                        <ul className="mt-2 list-disc pl-5 text-sm space-y-1">
+                          {exp.details.map((d, i) => (
+                            <li key={i}>{d}</li>
+                          ))}
+                        </ul>
+                        <Separator className="my-4" />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
+
+            {education?.length ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Academia: Education</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {education.map((edu) => (
+                      <div key={`${edu.institution}-${edu.period}`}>
+                        <div className="font-semibold">{edu.institution}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {edu.degree} • {edu.period}
+                        </div>
+                        {edu.details?.length ? (
+                          <ul className="mt-2 list-disc pl-5 text-sm space-y-1">
+                            {edu.details.map((d, i) => (
+                              <li key={i}>{d}</li>
+                            ))}
+                          </ul>
+                        ) : null}
+                        <Separator className="my-4" />
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
+          </div>
+        )}
+
+        {/* Awards Section */}
+        {awards?.length ? (
+          <div className="mt-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Honors: Awards & Achievements</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc pl-5 space-y-2 text-sm">
+                  {awards.map((a, i) => (
+                    <li key={i}>{a}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        ) : null}
 
         {/* Footer ribbon */}
         <Separator className="my-8" />

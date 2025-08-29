@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ViewMode } from "@/app/page";
 import resumeData from "@/data/resume.json";
-import type { SkillCategory, Project } from "@/lib/types";
+import type {
+  SkillCategory,
+  Project,
+  ExperienceEntry,
+  EducationEntry,
+} from "@/lib/types";
 
 interface TechModeProps {
   onModeChange: (mode: ViewMode | null) => void;
@@ -35,6 +40,9 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
       "  about       - Show background information",
       "  skills      - List technical skills",
       "  projects    - Show project portfolio",
+  "  experience  - Show work experience",
+  "  education   - Show education",
+  "  awards      - Show awards & achievements",
       "  resume      - Download resume PDF",
       "  clear       - Clear terminal",
       "  professional- Switch to professional mode",
@@ -69,6 +77,32 @@ export function TechMode({ onModeChange, preRunCommand }: TechModeProps) {
         }
       });
       return output;
+    },
+    experience: () => {
+      const list = resumeData.experience as ExperienceEntry[] | undefined;
+      if (!list?.length) return ["No experience found."];
+      const out = ["Experience:"];
+      list.forEach((exp) => {
+        out.push(`\n${exp.title} — ${exp.company} (${exp.period})`);
+        exp.details.forEach((d) => out.push(`  - ${d}`));
+      });
+      return out;
+    },
+    education: () => {
+      const list = resumeData.education as EducationEntry[] | undefined;
+      if (!list?.length) return ["No education found."];
+      const out = ["Education:"];
+      list.forEach((edu) => {
+        out.push(`\n${edu.institution}`);
+        out.push(`  ${edu.degree} (${edu.period})`);
+        edu.details?.forEach((d) => out.push(`  - ${d}`));
+      });
+      return out;
+    },
+    awards: () => {
+      const list = (resumeData as any).awards as string[] | undefined;
+      if (!list?.length) return ["No awards found."];
+      return ["Awards:", ...list.map((a) => `  - ${a}`)];
     },
     resume: () => {
       downloadResume();

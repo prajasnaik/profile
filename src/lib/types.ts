@@ -27,9 +27,26 @@ export interface Project {
   github?: string;
 }
 
+export interface ExperienceEntry {
+  title: string;
+  company: string;
+  period: string;
+  details: string[];
+}
+
+export interface EducationEntry {
+  institution: string;
+  degree: string;
+  period: string;
+  details?: string[];
+}
+
 export interface ResumeData {
   personalInfo: PersonalInfo;
   background: Background;
   skills: SkillCategory[];
   projects: Project[];
+  experience?: ExperienceEntry[];
+  education?: EducationEntry[];
+  awards?: string[];
 }
