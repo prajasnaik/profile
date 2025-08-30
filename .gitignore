@@ -36,14 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-src/data/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
 .vercel
-
-public/resume.pdf
-public/profile-photo.jpg
 
