@@ -1,94 +1,107 @@
 {
-	"personalInfo": {
-		"name": "Your Name",
-		"email": "your.email@example.com",
-		"phone": "+1 (555) 123-4567",
-		"location": "Your City, Country",
-		"website": "https://yourwebsite.com",
-		"linkedin": "https://linkedin.com/in/yourprofile",
-		"github": "https://github.com/yourusername"
-	},
-	"background": {
-		"introduction": "I am a passionate software developer with expertise in modern web technologies. I love creating efficient, scalable solutions and learning new technologies to solve complex problems.",
-		"summary": "Experienced software developer with a strong background in full-stack development, specializing in React, Node.js, and cloud technologies. Proven track record of delivering high-quality applications and leading development teams."
-	},
-	"skills": [
-		{
-			"category": "Programming Languages",
-			"items": ["JavaScript", "TypeScript", "Python", "Java", "C++"]
-		},
-		{
-			"category": "Frontend Technologies",
-			"items": ["React", "Next.js", "Vue.js", "HTML5", "CSS3", "Tailwind CSS"]
-		},
-		{
-			"category": "Backend Technologies",
-			"items": ["Node.js", "Express", "Django", "Spring Boot", "PostgreSQL", "MongoDB"]
-		},
-		{
-			"category": "Tools & Technologies",
-			"items": ["Git", "Docker", "AWS", "Firebase", "Webpack", "Jest"]
-		}
-	],
-	"projects": [
-		{
-			"title": "E-Commerce Platform",
-			"description": "A full-stack e-commerce platform built with React, Node.js, and PostgreSQL. Features include user authentication, product management, shopping cart, and payment integration.",
-			"technologies": ["React", "Node.js", "PostgreSQL", "Express", "Stripe API"],
-			"period": "2024",
-			"link": "https://example-ecommerce.com",
-			"github": "https://github.com/yourusername/ecommerce-platform"
-		},
-		{
-			"title": "Task Management App",
-			"description": "A collaborative task management application with real-time updates, team collaboration features, and advanced filtering options.",
-			"technologies": ["Vue.js", "Firebase", "Vuex", "Socket.io"],
-			"period": "2023",
-			"github": "https://github.com/yourusername/task-manager"
-		},
-		{
-			"title": "Weather Dashboard",
-			"description": "A responsive weather dashboard that displays current weather conditions and forecasts for multiple cities using external APIs.",
-			"technologies": ["JavaScript", "HTML5", "CSS3", "Weather API"],
-			"period": "2023",
-			"link": "https://weather-dashboard-demo.com"
-		}
-	],
-	"experience": [
-		{
-			"title": "Senior Software Engineer",
-			"company": "Tech Solutions Inc.",
-			"period": "2022 - Present",
-			"details": [
-				"Led a team of 5 developers to deliver scalable web applications.",
-				"Architected and implemented cloud-based solutions using AWS.",
-				"Mentored junior developers and conducted code reviews."
-			]
-		},
-		{
-			"title": "Full Stack Developer",
-			"company": "Innovatech Labs",
-			"period": "2020 - 2022",
-			"details": [
-				"Developed and maintained full-stack applications using React and Node.js.",
-				"Collaborated with cross-functional teams to define and implement new features.",
-				"Improved application performance and reliability."
-			]
-		}
-	],
-	"education": [
-		{
-			"institution": "State University",
-			"degree": "B.Sc. in Computer Science",
-			"period": "2016 - 2020",
-			"details": [
-				"Graduated with Honors.",
-				"Relevant coursework: Data Structures, Algorithms, Web Development."
-			]
-		}
-	],
-	"awards": [
-		"Employee of the Year, Tech Solutions Inc. (2024)",
-		"First Place, University Hackathon (2019)"
-	]
+  "personalInfo": {
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "phone": "+1 (555) 123-4567",
+    "location": "Your City, Country",
+    "website": "https://yourwebsite.com",
+    "linkedin": "https://linkedin.com/in/yourprofile",
+    "github": "https://github.com/yourusername"
+  },
+  "background": {
+    "introduction": "I am a passionate software developer with expertise in modern web technologies. I love creating efficient, scalable solutions and learning new technologies to solve complex problems.",
+    "summary": "Experienced software developer with a strong background in full-stack development, specializing in React, Node.js, and cloud technologies. Proven track record of delivering high-quality applications and leading development teams."
+  },
+  "skills": [
+    {
+      "category": "Programming Languages",
+      "items": ["JavaScript", "TypeScript", "Python", "Java", "C++"]
+    },
+    {
+      "category": "Frontend Technologies",
+      "items": ["React", "Next.js", "Vue.js", "HTML5", "CSS3", "Tailwind CSS"]
+    },
+    {
+      "category": "Backend Technologies",
+      "items": [
+        "Node.js",
+        "Express",
+        "Django",
+        "Spring Boot",
+        "PostgreSQL",
+        "MongoDB"
+      ]
+    },
+    {
+      "category": "Tools & Technologies",
+      "items": ["Git", "Docker", "AWS", "Firebase", "Webpack", "Jest"]
+    }
+  ],
+  "projects": [
+    {
+      "title": "E-Commerce Platform",
+      "description": "A full-stack e-commerce platform built with React, Node.js, and PostgreSQL. Features include user authentication, product management, shopping cart, and payment integration.",
+      "technologies": [
+        "React",
+        "Node.js",
+        "PostgreSQL",
+        "Express",
+        "Stripe API"
+      ],
+      "period": "2024",
+      "link": "https://example-ecommerce.com",
+      "github": "https://github.com/yourusername/ecommerce-platform"
+    },
+    {
+      "title": "Task Management App",
+      "description": "A collaborative task management application with real-time updates, team collaboration features, and advanced filtering options.",
+      "technologies": ["Vue.js", "Firebase", "Vuex", "Socket.io"],
+      "period": "2023",
+      "github": "https://github.com/yourusername/task-manager"
+    },
+    {
+      "title": "Weather Dashboard",
+      "description": "A responsive weather dashboard that displays current weather conditions and forecasts for multiple cities using external APIs.",
+      "technologies": ["JavaScript", "HTML5", "CSS3", "Weather API"],
+      "period": "2023",
+      "link": "https://weather-dashboard-demo.com"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Senior Software Engineer",
+      "company": "Tech Solutions Inc.",
+      "period": "2022 - Present",
+      "details": [
+        "Led a team of 5 developers to deliver scalable web applications.",
+        "Architected and implemented cloud-based solutions using AWS.",
+        "Mentored junior developers and conducted code reviews."
+      ]
+    },
+    {
+      "title": "Full Stack Developer",
+      "company": "Innovatech Labs",
+      "period": "2020 - 2022",
+      "details": [
+        "Developed and maintained full-stack applications using React and Node.js.",
+        "Collaborated with cross-functional teams to define and implement new features.",
+        "Improved application performance and reliability."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "State University",
+      "degree": "B.Sc. in Computer Science",
+      "period": "2016 - 2020",
+      "details": [
+        "Graduated with Honors.",
+        "Relevant coursework: Data Structures, Algorithms, Web Development."
+      ]
+    }
+  ],
+  "awards": [
+    "Employee of the Year, Tech Solutions Inc. (2024)",
+    "First Place, University Hackathon (2019)"
+  ]
 }
