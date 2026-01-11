@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { generateTerminalCommands, siteConfig } from "@/lib/data";
 
 interface TerminalLine {
   id: number;
@@ -10,86 +11,15 @@ interface TerminalLine {
   content: string;
 }
 
-const COMMANDS: Record<string, string[]> = {
-  help: [
-    "Available commands:",
-    "",
-    "  about       - Learn more about me",
-    "  skills      - View my technical skills",
-    "  projects    - See my featured projects",
-    "  contact     - Get in touch",
-    "  social      - Social media links",
-    "  clear       - Clear the terminal",
-    "",
-    "Tip: Click on a command to execute it",
-  ],
-  about: [
-    "┌─────────────────────────────────────────────────┐",
-    "│  PRAJAS NAIK                                    │",
-    "│  Full-Stack Developer                           │",
-    "├─────────────────────────────────────────────────┤",
-    "│                                                 │",
-    "│  I'm a passionate developer who loves building  │",
-    "│  elegant solutions to complex problems.         │",
-    "│                                                 │",
-    "│  Currently focused on:                          │",
-    "│  → React & Next.js applications                 │",
-    "│  → System design & architecture                 │",
-    "│  → Developer experience & tooling               │",
-    "│                                                 │",
-    "└─────────────────────────────────────────────────┘",
-  ],
-  skills: [
-    "// Technical Proficiencies",
-    "",
-    "Languages    → TypeScript, JavaScript, Python, Go",
-    "Frontend     → React, Next.js, Tailwind CSS",
-    "Backend      → Node.js, Express, PostgreSQL",
-    "DevOps       → Docker, AWS, CI/CD",
-    "Tools        → Git, VS Code, Figma",
-    "",
-    '> Run "projects" to see these skills in action',
-  ],
-  projects: [
-    "Featured Projects:",
-    "",
-    "◆ Project Alpha",
-    "  A full-stack SaaS application with 10k+ users",
-    "  Stack: Next.js, PostgreSQL, Stripe",
-    "",
-    "◆ Open Source CLI Tool",
-    "  Developer productivity tool with 500+ stars",
-    "  Stack: Go, Cobra",
-    "",
-    "◆ Real-time Dashboard",
-    "  Analytics platform with live data visualization",
-    "  Stack: React, WebSockets, D3.js",
-    "",
-    "> View more on GitHub: github.com/prajas",
-  ],
-  contact: [
-    "Let's connect!",
-    "",
-    "Email    → hello@prajas.dev",
-    "GitHub   → github.com/prajas",
-    "LinkedIn → linkedin.com/in/prajas",
-    "Twitter  → @prajas_dev",
-    "",
-    "> Always open to interesting opportunities!",
-  ],
-  social: [
-    "Social Links:",
-    "",
-    "🔗 GitHub    github.com/prajas",
-    "🔗 LinkedIn  linkedin.com/in/prajas",
-    "🔗 Twitter   @prajas_dev",
-    "🔗 Blog      blog.prajas.dev",
-  ],
-};
+const COMMANDS = generateTerminalCommands();
 
-export function TerminalLayout() {
+export function TerminalContent() {
   const [history, setHistory] = React.useState<TerminalLine[]>([
-    { id: 0, type: "output", content: "Welcome to prajas.dev terminal v1.0.0" },
+    {
+      id: 0,
+      type: "output",
+      content: `Welcome to ${siteConfig.terminal.prompt} terminal v${siteConfig.terminal.version}`,
+    },
     { id: 1, type: "output", content: 'Type "help" for available commands.' },
     { id: 2, type: "output", content: "" },
   ]);
@@ -111,7 +41,11 @@ export function TerminalLayout() {
   const executeCommand = (cmd: string) => {
     const trimmedCmd = cmd.trim().toLowerCase();
     let newLines: TerminalLine[] = [
-      { id: lineCounter, type: "prompt", content: "prajas@portfolio" },
+      {
+        id: lineCounter,
+        type: "prompt",
+        content: siteConfig.terminal.hostname,
+      },
       { id: lineCounter + 1, type: "command", content: trimmedCmd || " " },
     ];
 
@@ -129,7 +63,7 @@ export function TerminalLayout() {
       return;
     }
 
-    const output = COMMANDS[trimmedCmd];
+    const output = COMMANDS[trimmedCmd as keyof typeof COMMANDS];
     if (output) {
       newLines = [
         ...newLines,
@@ -197,7 +131,7 @@ export function TerminalLayout() {
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
-            <span>prajas@portfolio</span>
+            <span>{siteConfig.terminal.hostname}</span>
             <span className="text-primary">~</span>
           </div>
           <div className="w-16" /> {/* Spacer for balance */}
@@ -250,7 +184,7 @@ export function TerminalLayout() {
 
           {/* Current Input Line */}
           <div className="flex items-center">
-            <span className="text-primary">prajas@portfolio</span>
+            <span className="text-primary">{siteConfig.terminal.hostname}</span>
             <span className="text-muted-foreground">:</span>
             <span className="text-chart-3">~</span>
             <span className="text-foreground">$ </span>

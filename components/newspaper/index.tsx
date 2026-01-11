@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { articles, personalInfo, siteConfig } from "@/lib/data";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,6 +27,7 @@ interface ArticleCardProps {
   category: string;
   date: string;
   featured?: boolean;
+  slug: string;
 }
 
 function ArticleCard({
@@ -64,7 +66,7 @@ function ArticleCard({
         </div>
         <h3
           className={`
-          font-serif font-bold tracking-tight leading-tight
+          font-serif-display font-bold tracking-tight leading-tight
           group-hover:text-primary transition-colors
           ${
             featured
@@ -104,44 +106,7 @@ function ArticleCard({
   );
 }
 
-export function NewspaperLayout() {
-  const articles = [
-    {
-      title: "Building Scalable Applications with Modern Architecture",
-      description:
-        "An in-depth exploration of how I approach full-stack development, from system design to deployment. Learn about the patterns and practices that enable applications to grow with your business.",
-      category: "Featured",
-      date: "Today",
-      featured: true,
-    },
-    {
-      title: "The Art of Clean Code",
-      description:
-        "Why readability matters more than cleverness in production codebases.",
-      category: "Philosophy",
-      date: "This Week",
-    },
-    {
-      title: "From Idea to Production",
-      description:
-        "A case study of shipping a product from concept to users in 30 days.",
-      category: "Case Study",
-      date: "Recent",
-    },
-    {
-      title: "Tech Stack Decisions",
-      description: "How I choose the right tools for each project.",
-      category: "Engineering",
-      date: "Archive",
-    },
-    {
-      title: "Open Source Contributions",
-      description: "My journey in giving back to the community.",
-      category: "Community",
-      date: "Archive",
-    },
-  ];
-
+export function NewspaperContent() {
   return (
     <motion.div
       variants={containerVariants}
@@ -157,16 +122,15 @@ export function NewspaperLayout() {
         <div className="inline-flex items-center gap-4 mb-6">
           <div className="h-px w-12 bg-border" />
           <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-            Portfolio & Blog
+            {siteConfig.newspaper.tagline}
           </span>
           <div className="h-px w-12 bg-border" />
         </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight mb-4">
-          Prajas Naik
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif-display font-bold tracking-tight mb-4">
+          {personalInfo.name}
         </h1>
         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Full-stack developer crafting elegant solutions to complex problems.
-          Currently building the future, one commit at a time.
+          {personalInfo.tagline}
         </p>
       </motion.div>
 
@@ -186,10 +150,15 @@ export function NewspaperLayout() {
 
       {/* Articles Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-        {articles.map((article, index) => (
+        {articles.map((article) => (
           <ArticleCard
-            key={index}
-            {...article}
+            key={article.id}
+            title={article.title}
+            description={article.description}
+            category={article.category}
+            date={article.date}
+            featured={article.featured}
+            slug={article.slug}
           />
         ))}
       </div>

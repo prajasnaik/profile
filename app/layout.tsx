@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
-import { Lora, JetBrains_Mono } from "next/font/google";
+import {
+  Lora,
+  Merriweather,
+  JetBrains_Mono,
+  Atkinson_Hyperlegible,
+} from "next/font/google";
 import "./globals.css";
-import { ModeProvider } from "@/lib/mode-context";
 import { ThemeProvider } from "@/lib/theme-provider";
 
-const lora = Lora({
+// Sans-serif for Portfolio mode
+const atkinson = Atkinson_Hyperlegible({
   subsets: ["latin"],
-  variable: "--font-serif",
+  weight: ["400", "700"],
+  variable: "--font-sans",
 });
 
+// Serif display for Newspaper headlines
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif-display",
+});
+
+// Serif body for Newspaper content
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-serif-body",
+});
+
+// Monospace for Terminal mode
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -27,17 +47,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${lora.variable} ${jetbrainsMono.variable}`}
+      className={`${atkinson.variable} ${lora.variable} ${merriweather.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="antialiased">
+      <body className="antialiased font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <ModeProvider>{children}</ModeProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
