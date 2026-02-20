@@ -2,7 +2,7 @@
 
 A modern, interactive portfolio website built with Next.js that showcases professional profiles with multiple presentation modes and customizable themes. This responsive web application provides an engaging way to display personal information, skills, projects, and achievements through different visual experiences.
 
-## ✨ Features
+## Features
 
 - **Multiple Display Modes**: Choose between Professional, Technical, and Fun modes to match different audiences and contexts
 - **Responsive Design**: Fully responsive layout that works seamlessly across desktop, tablet, and mobile devices
@@ -14,7 +14,7 @@ A modern, interactive portfolio website built with Next.js that showcases profes
 - **TypeScript Support**: Full type safety with comprehensive TypeScript definitions
 - **Performance Optimized**: Built with Next.js for optimal loading speeds and SEO
 
-## 🚀 Technologies Used
+## Technologies Used
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
@@ -24,12 +24,12 @@ A modern, interactive portfolio website built with Next.js that showcases profes
 - **Theme Management**: next-themes
 - **Animation**: Tailwind CSS animations with tw-animate-css
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Node.js 18.x or later
 - pnpm, npm, yarn, or bun package manager
 
-## 🛠️ Installation
+## Installation
 
 1. Clone the repository:
 
@@ -126,7 +126,7 @@ The website content is driven by a JSON file located at `src/data/resume.json`. 
 2. Name it `resume.pdf` (this is the expected filename)
 3. The website includes a download link that points to this file
 
-## 🎨 Customization
+## Customization
 
 ### Theme Customization
 
@@ -176,7 +176,7 @@ The website uses custom font variables that can be modified:
 --font-mono: JetBrains Mono, monospace;
 ```
 
-## 📱 Usage
+## Usage
 
 ### Mode Selection
 
@@ -198,7 +198,7 @@ Upon loading, users are presented with three mode options:
 - Touch-friendly navigation and interactions
 - Optimized typography and spacing for smaller screens
 
-## 🏗️ Building for Production
+## Building for Production
 
 1. Build the application:
 
@@ -224,7 +224,7 @@ yarn start
 bun start
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Vercel (Recommended)
 
@@ -243,14 +243,14 @@ This is a standard Next.js application that can be deployed to:
 - DigitalOcean App Platform
 - Any platform supporting Node.js applications
 
-## 📝 Scripts
+## Scripts
 
 - `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
 - `pnpm lint` - Run ESLint
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -258,11 +258,11 @@ This is a standard Next.js application that can be deployed to:
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🙋 Support
+## Support
 
 If you encounter any issues or have questions:
 
